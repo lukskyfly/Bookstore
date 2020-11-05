@@ -5,6 +5,7 @@
     <title>Book list</title>
 </head>
 <body>
+<td><a th:href="@{/add-book}">Add new book</a></td>
 <table class="table">
     <thead>
     <tr>
@@ -25,6 +26,7 @@
         <td th:text="${book.author}"/>
         <td><a th:href="@{book-detail/{bookId}/(bookId=${book.id})}">details</a></td>
         <td><a th:href="@{delete-book/{bookId}/(bookId=${book.id})}">delete</a></td>
+        <td><a th:href="@{edit-book/{bookId}/(bookId=${book.id})}">edit</a></td>
 <!--        <td th:text="${book.isbn}"/>-->
 <!--        <td th:text="${book.description}"/>-->
 <!--        <td th:text="${book.year}"/>-->

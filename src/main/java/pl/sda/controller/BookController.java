@@ -3,9 +3,13 @@ package pl.sda.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.model.Book;
 import pl.sda.service.BookService;
+
 @Slf4j
 @Controller
 public class BookController {
@@ -14,24 +18,54 @@ public class BookController {
     public BookController(final BookService bookService) {
         this.bookService = bookService;
     }
+
     @GetMapping("book-list")
-    public ModelAndView bookList(){
+    public ModelAndView bookList() {
         ModelAndView modelAndView = new ModelAndView("book-list");
-        modelAndView.addObject("books",bookService.getAll());
+        modelAndView.addObject("books", bookService.getAll());
         return modelAndView;
     }
+
     @GetMapping("book-detail/{bookId}")
     public ModelAndView bookDetail(@PathVariable Integer bookId) {
         ModelAndView modelAndView = new ModelAndView("book-detail");
-        modelAndView.addObject("book",bookService.getById(bookId));
+        modelAndView.addObject("book", bookService.getById(bookId));
         return modelAndView;
     }
-    @GetMapping("delete-book/{bookId}")
-    public String deleteBook(@PathVariable Integer bookId){
-        bookService.delete(bookId);
-        log.info("Pozostało: " + bookService.getAll().size() + " ksiazek");
-        return "redirect:/book-list";
 
+    @GetMapping("delete-book/{bookId}")
+    public String deleteBook(@PathVariable Integer bookId) {
+        bookService.delete(bookId);
+        log.info("Left: " + bookService.getAll().size() + " books");
+        return "redirect:/book-list";
+    }
+
+    @GetMapping("edit-book/{bookId}")
+    public ModelAndView editBook(@PathVariable Integer bookId) {
+        ModelAndView modelAndView = new ModelAndView("edit-book");
+        modelAndView.addObject("book", bookService.getById(bookId));
+        return modelAndView;
+    }
+
+    @PostMapping("update-book")
+    public String updateBook(@ModelAttribute Book book) {
+
+        bookService.update(book);
+        log.info("update book: " + book);
+        return "redirect:/book-list";
+    }
+
+    @GetMapping("add-book")
+    public ModelAndView addBook() {
+        ModelAndView modelAndView = new ModelAndView("add-book");
+        modelAndView.addObject("book", new Book());
+        return modelAndView;
+    }
+    @PostMapping("save-book")
+    public String saveBook(@ModelAttribute Book book){
+        bookService.save(book);
+        log.info("Aded book: " + book);
+        return "redirect:/book-list";
     }
 }
 

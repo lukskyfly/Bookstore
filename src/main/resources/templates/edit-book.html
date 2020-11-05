@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+</head>
+<body>
+<form method="post" th:action="@{/update-book}" th:object="${book}">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+
+                <input type="hidden"th:field="*{id}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <input type="text"th:field="*{title}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <input type="text"th:field="*{author}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <input type="text"th:field="*{isbn}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <input type="text"th:field="*{description}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <input type="number"th:field="*{year}">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <button type="submit">Edytuj</button>
+
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</form>
+<td></td><a th:href="@{/book-list}">Return to book list</a></td>
+</body>
+</html>
