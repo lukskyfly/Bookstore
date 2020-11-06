@@ -28,7 +28,8 @@ public class BookControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private BookService bookService;
-    private Book bookTest = new Book(1,"Pan Tadeusz","Adam Mickiewicz", "12345", "opis",1834);
+    private Book bookTest = new Book(1, "Pan Tadeusz", "Adam Mickiewicz", "12345", "opis", 1834);
+
     @Test
     public void bookListTest() throws Exception {
         //given
@@ -40,7 +41,25 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("book-list"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("books"))
                 .andExpect(MockMvcResultMatchers.model().attribute("books", Matchers.notNullValue()));
-        Mockito.verify(bookService,Mockito.times(1)).getAll();
+        Mockito.verify(bookService, Mockito.times(1)).getAll();
 
+    }
+    @Test
+    public void saveBookTest() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/save-book")
+                .param("id", Integer.toString(bookTest.getId()))
+                .param("title",bookTest.getTitle())
+                .param("author",bookTest.getAuthor())
+                .param("isbn",bookTest.getIsbn())
+                .param("description",bookTest.getDescription())
+                .param("year",Integer.toString(bookTest.getYear())))
+        //zakonczenie wywołanie metody perform
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/book-list"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/book-list"));
+        //when//then
+        Mockito.verify(bookService, Mockito.times(1)).save(bookTest);
     }
 }
