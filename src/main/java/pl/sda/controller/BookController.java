@@ -61,8 +61,9 @@ public class BookController {
         modelAndView.addObject("book", new Book());
         return modelAndView;
     }
+
     @PostMapping("save-book")
-    public String saveBook(@ModelAttribute Book book){
+    public String saveBook(@ModelAttribute Book book) {
         bookService.save(book);
         log.info("Aded book: " + book);
         return "redirect:/book-list";
