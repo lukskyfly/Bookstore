@@ -11,19 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
-    @GetMapping("/login")
-    public String loginController(){
 
+    @GetMapping("/login")
+    public String login() {
         return "login";
     }
-    @GetMapping("/logout")
-    public String logOut(HttpServletRequest request, HttpServletResponse response){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication!= null){
-            new SecurityContextLogoutHandler().logout(request,response, authentication);
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
+
         return "redirect:/login?logout=true";
+    }
+
+    @GetMapping("/admin/admin-page")
+    public String adminPage() {
+        return "admin-page";
     }
 
 }

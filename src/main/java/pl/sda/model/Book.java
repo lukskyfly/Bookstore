@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,8 +21,10 @@ public class Book {
     private String author;
 
     private String isbn;
+
     @Column(length = 1000)
     private String description;
 
     private Integer year;
+
 }
