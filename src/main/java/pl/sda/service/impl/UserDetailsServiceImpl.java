@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserDetailsServiceImpl(final UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -24,9 +24,9 @@ private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User userFromDB=userRepository.findByUsername(username);
+        User userFromDB = userRepository.findByUsername(username);
         List<String> roleList = new ArrayList<>();
-        for(Role role : userFromDB.getRoles()){
+        for (Role role : userFromDB.getRoles()) {
             roleList.add(role.getName());
         }
         return org.springframework.security.core.userdetails.User.builder()

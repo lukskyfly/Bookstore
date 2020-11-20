@@ -1,40 +1,56 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
     <meta charset="UTF-8">
     <title>Book list</title>
 </head>
 <body>
-<td><a th:href="@{/add-book}">Add new book</a></td>
+
+<a th:href="@{/logout}">Logout</a></td>
+
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <a th:href="@{/admin/add-book}">Add new book</a></td>
+</div>
+
+
+<div>Logged as</div>
+<div th:text="${currentUser}"></div>
+
+<div sec:authorize="isAuthenticated()">
+    Logged as (thymeleaf-extras) <span sec:authentication="name"/>
+</div>
+
 <table class="table">
+
     <thead>
     <tr>
         <th scope="col">Title</th>
         <th scope="col">Author</th>
-<!--        <th scope="col">ISBN</th>-->
-<!--        <th scope="col">Description</th>-->
-<!--        <th scope="col">Year</th>-->
-
     </tr>
 
     </thead>
+
     <tbody>
 
     <tr th:each="book: ${books}">
 
         <td th:text="${book.title}"/>
         <td th:text="${book.author}"/>
+
         <td><a th:href="@{book-detail/{bookId}/(bookId=${book.id})}">details</a></td>
+
         <td><a th:href="@{delete-book/{bookId}/(bookId=${book.id})}">delete</a></td>
+
         <td><a th:href="@{edit-book/{bookId}/(bookId=${book.id})}">edit</a></td>
-<!--        <td th:text="${book.isbn}"/>-->
-<!--        <td th:text="${book.description}"/>-->
-<!--        <td th:text="${book.year}"/>-->
 
 
+    </tr>
     </tbody>
 
-
 </table>
+
 </body>
 </html>

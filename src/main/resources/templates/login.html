@@ -5,15 +5,18 @@
     <title>Login</title>
 </head>
 <body>
-<div style="text-align: center;">
+<center>
+
     <h1>Strona logowania</h1>
-    <form method="post" th:action="@{/login}"></form>
 
-    <td><input type="text" name="username"></td>
-    <td><input type="password" name="password"></td>
+    <form method="post" th:action="@{/login}">
 
-    <td><input type="submit" name="Zaloguj"></td>
+        <td><input type="text" name="username"></td>
+        <td><input type="password" name="password"></td>
 
-</div>
+        <td><input type="submit" name="Zaloguj"></td>
+
+    </form>
+</center>
 </body>
 </html>
