@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.sda.model.Role;
 import pl.sda.model.User;
+import pl.sda.service.AutoLoginService;
 import pl.sda.service.UserService;
 import pl.sda.service.impl.RoleService;
 
@@ -18,10 +19,12 @@ import java.util.Arrays;
 public class RegistrationController {
     private final RoleService roleService;
     private final UserService userService;
+    private final AutoLoginService autoLoginService;
 
-    public RegistrationController(final RoleService roleService,final UserService userService) {
+    public RegistrationController(final RoleService roleService, final UserService userService, final AutoLoginService autoLoginService) {
         this.roleService = roleService;
         this.userService = userService;
+        this.autoLoginService = autoLoginService;
     }
 
 
@@ -42,7 +45,8 @@ public class RegistrationController {
     Role role = roleService.findByName("USER");
     user.setRoles(Arrays.asList(role));
     userService.save(user);
-    log.info("Registered user: " +user.getUsername());
-    return "redirect:/login";
+    log.info("Registered user: " + user.getUsername());
+    autoLoginService.autoLogin(user.getUsername(),user.getPassword());
+    return "redirect:/book-list";
 }
 }

@@ -57,14 +57,14 @@ public class BookController {
         return "redirect:/book-list";
     }
 
-    @GetMapping("edit-book/{bookId}")
+    @GetMapping("admin/edit-book/{bookId}")
     public ModelAndView editBook(@PathVariable Integer bookId) {
         ModelAndView modelAndView = new ModelAndView("edit-book");
         modelAndView.addObject("book", bookService.getById(bookId));
         return modelAndView;
     }
 
-    @PostMapping("update-book")
+    @PostMapping("admin/update-book")
     public String updateBook(@ModelAttribute Book book) {
 
         bookService.update(book);
