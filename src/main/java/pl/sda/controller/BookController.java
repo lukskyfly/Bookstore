@@ -64,7 +64,7 @@ public class BookController {
         return modelAndView;
     }
 
-    @PostMapping("admin/update-book")
+    @PostMapping("admin/ update-book")
     public String updateBook(@ModelAttribute Book book) {
 
         bookService.update(book);

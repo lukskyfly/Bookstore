@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
 
@@ -7,6 +8,13 @@
 </head>
 <body>
 <h1>ADMIN PAGE</h1>
+
+<a th:href="@{/logout}">Logout</a></td>
+<a th:href="@{/book-list}">book-list</a></td>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <td><a th:href="@{admin/delete-user/{username}/(username=${user.id})}">Delete user</a></td>
+</div>
+
 
 </body>
 </html>

@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -35,9 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/book-list") //zakomentowane, ponieważ używamy success handler
+//                .defaultSuccessUrl("/book-list") //zakomentowane, ponieważ używamy success handler
                 .failureUrl("/login?error=true")
-//                .successHandler(successHandler) //przekierowuje na odpowiedni widok w zależności od roli użytkownika
+                .successHandler(successHandler) //przekierowuje na odpowiedni widok w zależności od roli użytkownika
                 .permitAll()
                 .and()
                 .logout()
