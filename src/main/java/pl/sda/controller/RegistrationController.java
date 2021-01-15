@@ -27,26 +27,24 @@ public class RegistrationController {
         this.autoLoginService = autoLoginService;
     }
 
-
     @GetMapping("/registration")
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView("registration");
         modelAndView.addObject("user", new User());
         return modelAndView;
     }
-@PostMapping("/registration")
+
+    @PostMapping("/registration")
     public String registration(@ModelAttribute("user") User user) {
         if (userService.findByUsername(user.getUsername()) != null) {
             log.info("USER EXISTS!" + user.getUsername());
             return "registration";
         }
-
-
-    Role role = roleService.findByName("USER");
-    user.setRoles(Arrays.asList(role));
-    userService.save(user);
-    log.info("Registered user: " + user.getUsername());
-    autoLoginService.autoLogin(user.getUsername(),user.getPassword());
-    return "redirect:/book-list";
-}
+        Role role = roleService.findByName("USER");
+        user.setRoles(Arrays.asList(role));
+        userService.save(user);
+        log.info("Registered user: " + user.getUsername());
+        autoLoginService.autoLogin(user.getUsername(), user.getPassword());
+        return "redirect:/book-list";
+    }
 }

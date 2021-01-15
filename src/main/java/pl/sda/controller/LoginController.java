@@ -33,5 +33,4 @@ public class LoginController {
     public String adminPage() {
         return "admin-page";
     }
-
 }

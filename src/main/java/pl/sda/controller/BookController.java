@@ -25,7 +25,7 @@ public class BookController {
     @GetMapping("book-list")
     public ModelAndView bookList() {
 
-        ModelAndView  modelAndView = new ModelAndView("book-list");
+        ModelAndView modelAndView = new ModelAndView("book-list");
 
         modelAndView.addObject("books", bookService.getAll());
 
@@ -87,5 +87,4 @@ public class BookController {
 
         return "redirect:/book-list";
     }
-
 }

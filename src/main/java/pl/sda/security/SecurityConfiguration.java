@@ -36,9 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .defaultSuccessUrl("/book-list") //zakomentowane, ponieważ używamy success handler
                 .failureUrl("/login?error=true")
-                .successHandler(successHandler) //przekierowuje na odpowiedni widok w zależności od roli użytkownika
+                .successHandler(successHandler)
                 .permitAll()
                 .and()
                 .logout()
@@ -46,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .permitAll()
                 .and()
-                .headers().frameOptions().disable(); //Potrzebne do poprawnego działania konsoli H2
+                .headers().frameOptions().disable();
     }
 
     @Bean
@@ -69,5 +68,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
         auth.authenticationProvider(daoAuthenticationProvider());
     }
-
 }
