@@ -18,11 +18,8 @@ public class AdminController {
 
     @GetMapping("delete-user/{userId}")
     public String deleteUser(@PathVariable Integer id) {
-
         userService.delete(id);
-
         log.info("Left " + " user");
-
         return "redirect:/admin-page";
     }
 }

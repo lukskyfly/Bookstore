@@ -15,11 +15,12 @@
     <a th:href="@{/admin/add-book}">Add new book</a></td>
 </div>
 
-<div>Zalogowany jako</div>
+
+<div>Logged as</div>
 <div th:text="${currentUser}"></div>
 
 <div sec:authorize="isAuthenticated()">
-    Zalogowany jako (thymeleaf-extras) <span sec:authentication="name"/>
+    Logged as (thymeleaf-extras) <span sec:authentication="name"/>
 </div>
 
 <table class="table">
@@ -40,14 +41,13 @@
         <td th:text="${book.author}"/>
 
         <td><a th:href="@{book-detail/{bookId}/(bookId=${book.id})}">details</a></td>
-
         <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <td><a th:href="@{admin/delete-book/{bookId}/(bookId=${book.id})}">delete</a></td>
-        </div>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <td><a th:href="@{admin/edit-book/{bookId}/(bookId=${book.id})}">edit</a></td>
-        </div>
+            <td><a th:href="@{delete-book/{bookId}/(bookId=${book.id})}">delete</a></td>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <td><a th:href="@{edit-book/{bookId}/(bookId=${book.id})}">edit</a></td>
 
+            </div>
+        </div>
     </tr>
     </tbody>
 

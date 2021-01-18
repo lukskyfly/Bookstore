@@ -24,52 +24,38 @@ public class BookController {
 
     @GetMapping("book-list")
     public ModelAndView bookList() {
-
-        ModelAndView modelAndView = new ModelAndView("book-list");
-
+        ModelAndView  modelAndView = new ModelAndView("book-list");
         modelAndView.addObject("books", bookService.getAll());
-
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
         modelAndView.addObject("currentUser", username);
-
         return modelAndView;
-
     }
 
     @GetMapping("book-detail/{bookId}")
     public ModelAndView bookDetail(@PathVariable Integer bookId) {
-
         ModelAndView modelAndView = new ModelAndView("book-detail");
         modelAndView.addObject("book", bookService.getById(bookId));
-
         return modelAndView;
-
     }
 
     @GetMapping("delete-book/{bookId}")
     public String deleteBook(@PathVariable Integer bookId) {
-
         bookService.delete(bookId);
-
         log.info("Left " + bookService.getAll().size() + " books.");
-
         return "redirect:/book-list";
     }
 
-    @GetMapping("admin/edit-book/{bookId}")
+    @GetMapping("edit-book/{bookId}")
     public ModelAndView editBook(@PathVariable Integer bookId) {
         ModelAndView modelAndView = new ModelAndView("edit-book");
         modelAndView.addObject("book", bookService.getById(bookId));
         return modelAndView;
     }
 
-    @PostMapping("admin/ update-book")
+    @PostMapping("update-book")
     public String updateBook(@ModelAttribute Book book) {
-
         bookService.update(book);
         log.info("Updated book: " + book);
-
         return "redirect:/book-list";
     }
 
@@ -84,7 +70,6 @@ public class BookController {
     public String saveBook(@ModelAttribute Book book) {
         bookService.save(book);
         log.info("Added book: " + book);
-
         return "redirect:/book-list";
     }
 }
